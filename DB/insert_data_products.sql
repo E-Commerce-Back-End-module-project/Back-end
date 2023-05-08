@@ -26,7 +26,5 @@ INSERT INTO backend.products (name, Price, Description, idCategory) VALUES('Skir
 
 select * from backend.products ;
 
--- insert into backend.products
--- select color from backend.color
--- where idColor;
+
 
