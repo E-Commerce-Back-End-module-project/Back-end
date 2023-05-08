@@ -1,6 +1,7 @@
 package com.EComm.BackEndProject.controllers;
 
 import com.EComm.BackEndProject.models.Products;
+import com.EComm.BackEndProject.repositories.CategoryRepository;
 import com.EComm.BackEndProject.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,8 @@ import java.util.List;
 public class ProductsController {
     @Autowired
     private ProductsRepository productsRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

@@ -1,17 +1,14 @@
 package com.EComm.BackEndProject.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Size {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idSize;
+    private Long id_size;
 
     private String size;
 
@@ -20,8 +17,8 @@ public class Size {
 //
 //    private List<Products> products;
 
-    public Size(Long idSize, String size) {
-        this.idSize = idSize;
+    public Size(Long id_size, String size) {
+        this.id_size = id_size;
         this.size = size;
     }
 
@@ -29,12 +26,12 @@ public class Size {
 
     }
 
-    public Long getIdSize() {
-        return idSize;
+    public Long getId_size() {
+        return id_size;
     }
 
-    public void setIdSize(Long idSize) {
-        this.idSize = idSize;
+    public void setId_size(Long id_size) {
+        this.id_size = id_size;
     }
 
     public String getSize() {

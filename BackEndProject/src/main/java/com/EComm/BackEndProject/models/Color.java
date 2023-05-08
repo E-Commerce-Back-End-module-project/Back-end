@@ -11,47 +11,46 @@ import java.util.List;
 public class Color {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idColor;
+    private Long id_color;
 
-    @Column(name = "Color")
-    private String color;
+    @Column(name = "name")
+    private String name;
 
-//    @ManyToMany(mappedBy = "colors")
-//    @JsonIgnore
-//
-//    private List<Products> products;
+    @ManyToMany(mappedBy = "colors")
+    @JsonIgnore
+    private List<Products> products;
 
 
-    public Color(Long idColor, String color) {
-        this.idColor = idColor;
-        this.color = color;
+    public Color(Long id_color, String name) {
+        this.id_color = id_color;
+        this.name = name;
     }
 
     public Color(){
 
     }
 
-    public Long getIdColor() {
-        return idColor;
+    public Long getId_color() {
+        return id_color;
     }
 
-    public void setIdColor(Long idColor) {
-        this.idColor = idColor;
+    public void setId_color(Long id_color) {
+        this.id_color = id_color;
     }
 
-    public String getColor() {
-        return color;
+    public String getName() {
+        return name;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setName(String name) {
+        this.name = name;
     }
 
-//    public List<Products> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(List<Products> products) {
-//        this.products = products;
-//    }
+    public List<Products> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Products> products) {
+        this.products = products;
+    }
 }
