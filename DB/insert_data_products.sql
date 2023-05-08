@@ -1,7 +1,7 @@
 -- Insert data into the Products table
 INSERT INTO BackEnd.Products(name)
 
-INSERT INTO backend.products (name, Price, Description, idCategory) VALUES('Dress', '69.90', 'Long Printed Shirt Dress, 3/4 sleeve', 8, );
+INSERT INTO backend.products (name, Price, Description, idCategory) VALUES('Dress', '69.90', 'Long Printed Shirt Dress, 3/4 sleeve', 8);
 INSERT INTO backend.products (name, Price, Description, idCategory) VALUES('Dress', '48.90', 'Floral Print Midi Dress', 8);
 INSERT INTO backend.products (name, Price, Description, idCategory) VALUES('Dress', '37.93', 'Printed Fine Mesh Dress, 3/4 sleeve', 8);
 INSERT INTO backend.products (name, Price, Description, idCategory) VALUES('Top', '29.90', 'Top', 1);
