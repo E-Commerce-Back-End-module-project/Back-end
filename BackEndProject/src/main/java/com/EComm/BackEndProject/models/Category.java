@@ -14,6 +14,10 @@ public class Category {
 
     private String name;
 
+    public Category(Long idCategory, String name) {
+        this.idCategory = idCategory;
+        this.name = name;
+    }
 
     public Category(){
 

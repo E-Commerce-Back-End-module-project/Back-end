@@ -10,9 +10,10 @@ import java.util.List;
 
 @Entity(name = "Products")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "Products")
 public class Products {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idProducts;
 
     @Column(name = "Name")
@@ -24,33 +25,22 @@ public class Products {
     @Column(name = "Description")
     private String description;
 
-    @ManyToMany
-    @JoinTable(
-            name = "products_color_size",
-            joinColumns = @JoinColumn(name = "idProducts"),
-            inverseJoinColumns = @JoinColumn(name = "idColor")
-
-    )
-    private List<Color> colors;
-
-    @ManyToMany
-    @JoinTable(
-            name = "products_color_size",
-            joinColumns = @JoinColumn(name = "idProducts"),
-            inverseJoinColumns = @JoinColumn(name = "idSize")
-    )
-    private List<Size> sizes;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idCategory", nullable = false)
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idCategory")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Category category;
 
+        public Products(Long idProducts, String name, Double price, String description, Category category) {
+        this.idProducts = idProducts;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+    }
     public Products(){
 
     }
-
     public Long getIdProducts() {
         return idProducts;
     }
@@ -81,22 +71,6 @@ public class Products {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<Color> getColors() {
-        return colors;
-    }
-
-    public void setColors(List<Color> colors) {
-        this.colors = colors;
-    }
-
-    public List<Size> getSizes() {
-        return sizes;
-    }
-
-    public void setSizes(List<Size> sizes) {
-        this.sizes = sizes;
     }
 
     public Category getCategory() {

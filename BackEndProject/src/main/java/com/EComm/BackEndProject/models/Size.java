@@ -15,10 +15,15 @@ public class Size {
 
     private String size;
 
-    @ManyToMany(mappedBy = "sizes")
-    @JsonIgnore
+//    @ManyToMany(mappedBy = "sizes")
+//    @JsonIgnore
+//
+//    private List<Products> products;
 
-    private List<Products> products;
+    public Size(Long idSize, String size) {
+        this.idSize = idSize;
+        this.size = size;
+    }
 
     public Size() {
 
@@ -40,11 +45,11 @@ public class Size {
         this.size = size;
     }
 
-    public List<Products> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Products> products) {
-        this.products = products;
-    }
+//    public List<Products> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Products> products) {
+//        this.products = products;
+//    }
 }

@@ -16,10 +16,16 @@ public class Color {
     @Column(name = "Color")
     private String color;
 
-    @ManyToMany(mappedBy = "colors")
-    @JsonIgnore
+//    @ManyToMany(mappedBy = "colors")
+//    @JsonIgnore
+//
+//    private List<Products> products;
 
-    private List<Products> products;
+
+    public Color(Long idColor, String color) {
+        this.idColor = idColor;
+        this.color = color;
+    }
 
     public Color(){
 
@@ -41,11 +47,11 @@ public class Color {
         this.color = color;
     }
 
-    public List<Products> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Products> products) {
-        this.products = products;
-    }
+//    public List<Products> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Products> products) {
+//        this.products = products;
+//    }
 }
