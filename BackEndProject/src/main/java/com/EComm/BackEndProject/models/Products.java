@@ -47,6 +47,14 @@ public class Products {
             inverseJoinColumns = @JoinColumn(name = "id_color")
     )
     private List<Color> colors;
+
+    @ManyToMany
+    @JoinTable(
+            name = "products_size",
+            joinColumns = @JoinColumn(name = "id_products"),
+            inverseJoinColumns = @JoinColumn(name = "id_size")
+    )
+    private List<Size> sizes;
     public Products(){
 
     }
@@ -96,5 +104,13 @@ public class Products {
 
     public void setColors(List<Color> colors) {
         this.colors = colors;
+    }
+
+    public List<Size> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<Size> sizes) {
+        this.sizes = sizes;
     }
 }

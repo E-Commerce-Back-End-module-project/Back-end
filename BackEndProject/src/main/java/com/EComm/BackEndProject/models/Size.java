@@ -1,7 +1,10 @@
 package com.EComm.BackEndProject.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -12,10 +15,9 @@ public class Size {
 
     private String size;
 
-//    @ManyToMany(mappedBy = "sizes")
-//    @JsonIgnore
-//
-//    private List<Products> products;
+    @ManyToMany(mappedBy = "sizes")
+    @JsonIgnore
+    private List<Products> products;
 
     public Size(Long id_size, String size) {
         this.id_size = id_size;
@@ -42,11 +44,11 @@ public class Size {
         this.size = size;
     }
 
-//    public List<Products> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(List<Products> products) {
-//        this.products = products;
-//    }
+    public List<Products> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Products> products) {
+        this.products = products;
+    }
 }
