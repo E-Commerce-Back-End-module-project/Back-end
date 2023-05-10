@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_category;
 
     private String name;

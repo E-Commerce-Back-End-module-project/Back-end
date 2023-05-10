@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "Products")
 public class Products {
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_Products")
     private Long id_Products;
 
@@ -26,8 +26,8 @@ public class Products {
     @Column(name = "Description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idCategory", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "idCategory", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Category category;

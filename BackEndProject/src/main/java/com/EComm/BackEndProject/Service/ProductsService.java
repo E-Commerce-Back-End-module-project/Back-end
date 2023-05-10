@@ -1,7 +1,9 @@
 package com.EComm.BackEndProject.Service;
 
+import com.EComm.BackEndProject.models.Color;
 import com.EComm.BackEndProject.models.Products;
 import com.EComm.BackEndProject.models.Category;
+import com.EComm.BackEndProject.models.Size;
 import com.EComm.BackEndProject.repositories.CategoryRepository;
 import com.EComm.BackEndProject.repositories.ColorRepository;
 import com.EComm.BackEndProject.repositories.ProductsRepository;
@@ -25,6 +27,19 @@ public class ProductsService {
     ColorRepository colorRepository;
     @Autowired
     SizeRepository sizeRepository;
+
+    public Products saveAndFlush(Products productRequest) {
+        Products product = new Products();
+        product.setName(productRequest.getName());
+        product.setPrice(productRequest.getPrice());
+        product.setDescription(productRequest.getDescription());
+        product.setCategory(productRequest.getCategory());
+        product.setColors(productRequest.getColors());
+        product.setSizes(productRequest.getSizes());
+
+        return productsRepository.saveAndFlush(product);
+
+    }
 //    @GetMapping("category/{id_category}/products")
 //    public ResponseEntity<List<Products>> getAllProductsByCategoryId(@PathVariable(value = "id_category") Long id_category){
 //        List<Products> categoryProducts = productsRepository.findByCategoryId(id_category);
