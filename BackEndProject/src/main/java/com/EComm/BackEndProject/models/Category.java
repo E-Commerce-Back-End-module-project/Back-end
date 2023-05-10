@@ -3,19 +3,18 @@ package com.EComm.BackEndProject.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
+@Table(name = "Category")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCategory;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id_category;
 
     private String name;
 
-    public Category(Long idCategory, String name) {
-        this.idCategory = idCategory;
+    public Category(Long id_category, String name) {
+        this.id_category = id_category;
         this.name = name;
     }
 
@@ -23,12 +22,12 @@ public class Category {
 
     }
 
-    public Long getIdCategory() {
-        return idCategory;
+    public Long getId_category() {
+        return id_category;
     }
 
-    public void setIdCategory(Long idCategory) {
-        this.idCategory = idCategory;
+    public void setId_category(Long id_category) {
+        this.id_category = id_category;
     }
 
     public String getName() {
@@ -38,5 +37,7 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+
+
 
 }

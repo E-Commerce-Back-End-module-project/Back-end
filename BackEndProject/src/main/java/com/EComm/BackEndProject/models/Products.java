@@ -14,7 +14,8 @@ import java.util.List;
 public class Products {
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idProducts;
+    @Column(name = "id_Products")
+    private Long id_Products;
 
     @Column(name = "Name")
     private String name;
@@ -25,28 +26,44 @@ public class Products {
     @Column(name = "Description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCategory")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "idCategory", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Category category;
 
-        public Products(Long idProducts, String name, Double price, String description, Category category) {
-        this.idProducts = idProducts;
+        public Products(Long id_Products, String name, Double price, String description, Category category) {
+        this.id_Products = id_Products;
         this.name = name;
         this.price = price;
         this.description = description;
         this.category = category;
     }
+
+    @ManyToMany
+    @JoinTable(
+            name = "products_color",
+            joinColumns = @JoinColumn(name = "id_products"),
+            inverseJoinColumns = @JoinColumn(name = "id_color")
+    )
+    private List<Color> colors;
+
+    @ManyToMany
+    @JoinTable(
+            name = "products_size",
+            joinColumns = @JoinColumn(name = "id_products"),
+            inverseJoinColumns = @JoinColumn(name = "id_size")
+    )
+    private List<Size> sizes;
     public Products(){
 
     }
-    public Long getIdProducts() {
-        return idProducts;
+    public Long getId_Products() {
+        return id_Products;
     }
 
-    public void setIdProducts(Long idProducts) {
-        this.idProducts = idProducts;
+    public void setId_Products(Long id_Products) {
+        this.id_Products = id_Products;
     }
 
     public String getName() {
@@ -79,5 +96,21 @@ public class Products {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<Color> getColors() {
+        return colors;
+    }
+
+    public void setColors(List<Color> colors) {
+        this.colors = colors;
+    }
+
+    public List<Size> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<Size> sizes) {
+        this.sizes = sizes;
     }
 }

@@ -1,6 +1,4 @@
 -- Insert data into the Category table
-INSERT INTO BackEnd.CATEGORY(name)
-
 
 INSERT INTO backend.category (name) VALUES('Basics');
 INSERT INTO backend.category (name) VALUES('Shirts and Tunics');
@@ -12,3 +10,4 @@ INSERT INTO backend.category (name) VALUES('Skirts');
 INSERT INTO backend.category (name) VALUES('Dresses');
 
 select * from backend.category;
+
