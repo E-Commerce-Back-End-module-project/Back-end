@@ -60,8 +60,19 @@ public class ProductsController {
            Products product = productsService.saveAndFlush(products);
            return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
-
-
+// Delete a product
+    @DeleteMapping
+    @RequestMapping(value = "products/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id_Products) {
+        productsRepository.deleteById(id_Products);
+        return new ResponseEntity<>(HttpStatus.GONE);
+    }
+//    @ResponseStatus(HttpStatus.GONE)
+//    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+//    public void delete(@PathVariable Long id) {
+//        //Also need to check for children records before deleting.
+//        sessionRepository.deleteById(id);
+//    }
 
 }
 
