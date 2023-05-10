@@ -1,5 +1,7 @@
 package com.EComm.BackEndProject.Service;
 
+import com.EComm.BackEndProject.models.Color;
+import com.EComm.BackEndProject.models.Size;
 import com.EComm.BackEndProject.repositories.CategoryRepository;
 import com.EComm.BackEndProject.repositories.ColorRepository;
 import com.EComm.BackEndProject.repositories.ProductsRepository;
@@ -17,4 +19,11 @@ public class SizeService {
     ProductsRepository productsRepository;
     @Autowired
     ColorRepository colorRepository;
+
+    public Size saveAndFlush(Size sizeRequest) {
+        Size newSize = new Size();
+        newSize.setSize(sizeRequest.getSize());
+
+        return sizeRepository.saveAndFlush(newSize);
+    }
 }
