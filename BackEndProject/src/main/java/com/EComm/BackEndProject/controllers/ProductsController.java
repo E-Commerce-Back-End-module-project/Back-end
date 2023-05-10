@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/")
@@ -34,10 +35,15 @@ public class ProductsController {
 
     //get Product by id
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     @RequestMapping("products/{id}")
-    public Products get(@PathVariable Long id) {
-        return productsRepository.getById(id);
+    public ResponseEntity<Products> get(@PathVariable Long id) {
+        try {
+            Products products = productsRepository.getById(id);
+            return new ResponseEntity<Products>(products, HttpStatus.OK);
+        }catch (NoSuchElementException e){
+            return new ResponseEntity<Products>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
 //get a list of products in a category

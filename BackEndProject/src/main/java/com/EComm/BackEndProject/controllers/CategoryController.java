@@ -7,9 +7,11 @@ import com.EComm.BackEndProject.repositories.CategoryRepository;
 import com.EComm.BackEndProject.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/category")
@@ -30,10 +32,16 @@ public class CategoryController {
     public List<Category> categoryList(){return categoryRepository.findAll();}
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/{id}")
     public Category get(@PathVariable Long id) {
-        return categoryRepository.getById(id);
+        try{
+            Category category = categoryRepository.getById(id);
+            return new ResponseEntity<Category>(category,HttpStatus.OK).getBody();
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<Category>(HttpStatus.NOT_FOUND).getBody();
+        }
+
+
     }
 
 
