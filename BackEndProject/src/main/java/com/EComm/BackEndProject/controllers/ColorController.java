@@ -56,4 +56,12 @@ public class ColorController {
         return new ResponseEntity<>(newColor, HttpStatus.CREATED);
     }
 
+    // Delete a color
+    @DeleteMapping
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<HttpStatus> deleteColorById(@PathVariable("id") Long id_color) {
+        colorRepository.deleteById(id_color);
+        return new ResponseEntity<>(HttpStatus.GONE);
+    }
+
 }
