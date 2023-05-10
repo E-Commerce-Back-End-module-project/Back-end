@@ -57,9 +57,8 @@ public class ProductsController {
     @PostMapping
     @RequestMapping("products")
     public ResponseEntity<Products> create(@RequestBody Products products){
-        Products product = productsService.saveAndFlush(products);
-        return new ResponseEntity<>(product, HttpStatus.CREATED);
-
+           Products product = productsService.saveAndFlush(products);
+           return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
 
