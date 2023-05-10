@@ -1,10 +1,14 @@
 package com.EComm.BackEndProject.controllers;
 
+import com.EComm.BackEndProject.Service.CategoryService;
+import com.EComm.BackEndProject.Service.ProductsService;
+import com.EComm.BackEndProject.models.Category;
 import com.EComm.BackEndProject.models.Products;
 import com.EComm.BackEndProject.repositories.CategoryRepository;
 import com.EComm.BackEndProject.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,19 +18,36 @@ import java.util.List;
 public class ProductsController {
     @Autowired
     private ProductsRepository productsRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
 
+    @Autowired
+    ProductsService productsService;
+    @Autowired
+    CategoryRepository categoryRepository;
+    @Autowired
+    CategoryService categoryService;
+
+
+//    Get all products
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Products> list() {return productsRepository.findAll();}
 
+    //get Product by id
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping("products/{id}")
     public Products get(@PathVariable Long id) {
         return productsRepository.getById(id);
     }
+
+//get a list of products in a category
+//    @GetMapping("category/{id_category}/products")
+//    public ResponseEntity<List<Products>> getAllProductsByCategoryId(@PathVariable(value = "id_category") Long id_category){
+//        List<Products> categoryProducts = productsRepository.findByCategoryId(id_category);
+//        return  new ResponseEntity<>(categoryProducts, HttpStatus.OK);
+//    }
+
+
 }
 
 
