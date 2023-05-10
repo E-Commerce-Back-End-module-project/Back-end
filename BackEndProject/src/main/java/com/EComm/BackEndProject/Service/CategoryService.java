@@ -21,7 +21,10 @@ public class CategoryService {
     SizeRepository sizeRepository;
 
 
+    public Category saveAndFlush(Category categoryRequest) {
+        Category newCategory = new Category();
+        newCategory.setName(categoryRequest.getName());
 
-
-
+        return categoryRepository.saveAndFlush(newCategory);
+    }
 }
