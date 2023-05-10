@@ -6,6 +6,7 @@ import com.EComm.BackEndProject.repositories.ColorRepository;
 import com.EComm.BackEndProject.repositories.ProductsRepository;
 import com.EComm.BackEndProject.repositories.SizeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,9 @@ public class CategoryService {
         newCategory.setName(categoryRequest.getName());
 
         return categoryRepository.saveAndFlush(newCategory);
+    }
+
+    public Category getById(Long id_category) {
+        return categoryRepository.getById(id_category);
     }
 }

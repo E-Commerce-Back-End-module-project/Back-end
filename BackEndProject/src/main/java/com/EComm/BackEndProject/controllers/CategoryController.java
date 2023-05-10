@@ -3,7 +3,6 @@ package com.EComm.BackEndProject.controllers;
 import com.EComm.BackEndProject.Service.CategoryService;
 import com.EComm.BackEndProject.Service.ProductsService;
 import com.EComm.BackEndProject.models.Category;
-import com.EComm.BackEndProject.models.Products;
 import com.EComm.BackEndProject.repositories.CategoryRepository;
 import com.EComm.BackEndProject.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +33,12 @@ public class CategoryController {
 
     @GetMapping
     @RequestMapping("/{id}")
-    public Category get(@PathVariable Long id) {
+    public Object get(@PathVariable Long id) {
         try{
-            Category category = categoryRepository.getById(id);
-            return new ResponseEntity<Category>(category,HttpStatus.OK).getBody();
+            Category category = categoryService.getById(id);
+            return new ResponseEntity<Category>(category,HttpStatus.OK);
         } catch (NoSuchElementException e){
-            return new ResponseEntity<Category>(HttpStatus.NOT_FOUND).getBody();
+            return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -48,6 +47,14 @@ public class CategoryController {
     public ResponseEntity<Category> create(@RequestBody Category category){
         Category newCategory = categoryService.saveAndFlush(category);
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
+    }
+
+    // Delete a category
+    @DeleteMapping
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<HttpStatus> deleteCategoryById(@PathVariable("id") Long id_category) {
+        categoryRepository.deleteById(id_category);
+        return new ResponseEntity<>(HttpStatus.GONE);
     }
 
 

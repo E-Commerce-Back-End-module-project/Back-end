@@ -67,12 +67,7 @@ public class ProductsController {
         productsRepository.deleteById(id_Products);
         return new ResponseEntity<>(HttpStatus.GONE);
     }
-//    @ResponseStatus(HttpStatus.GONE)
-//    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-//    public void delete(@PathVariable Long id) {
-//        //Also need to check for children records before deleting.
-//        sessionRepository.deleteById(id);
-//    }
+
 
 }
 
