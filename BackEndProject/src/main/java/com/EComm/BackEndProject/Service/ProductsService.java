@@ -40,6 +40,14 @@ public class ProductsService {
         return productsRepository.saveAndFlush(product);
 
     }
+
+    //deleting by id
+    public void deleteProductById(Long id_Products) {
+        productsRepository.deleteById(id_Products);
+    }
+
+
+
 //    @GetMapping("category/{id_category}/products")
 //    public ResponseEntity<List<Products>> getAllProductsByCategoryId(@PathVariable(value = "id_category") Long id_category){
 //        List<Products> categoryProducts = productsRepository.findByCategoryId(id_category);
