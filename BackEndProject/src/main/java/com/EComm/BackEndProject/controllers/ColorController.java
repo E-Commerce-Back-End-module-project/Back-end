@@ -12,6 +12,7 @@ import com.EComm.BackEndProject.repositories.ProductsRepository;
 import com.EComm.BackEndProject.repositories.SizeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,6 +47,13 @@ public class ColorController {
     @RequestMapping("/{id}")
     public Color get(@PathVariable Long id) {
         return colorRepository.getById(id);
+    }
+
+    //Create a new color
+    @PostMapping
+    public ResponseEntity<Color> create(@RequestBody Color color){
+        Color newColor = colorService.saveAndFlush(color);
+        return new ResponseEntity<>(newColor, HttpStatus.CREATED);
     }
 
 }
