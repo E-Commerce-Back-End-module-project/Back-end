@@ -50,6 +50,14 @@ public class SizeController {
         return new ResponseEntity<>(newSize, HttpStatus.CREATED);
     }
 
+    // Delete a size
+    @DeleteMapping
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<HttpStatus> deleteColorById(@PathVariable("id") Long id_size) {
+        sizeRepository.deleteById(id_size);
+        return new ResponseEntity<>(HttpStatus.GONE);
+    }
+
 
 
 }
