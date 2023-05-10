@@ -11,6 +11,7 @@ import com.EComm.BackEndProject.repositories.ProductsRepository;
 import com.EComm.BackEndProject.repositories.SizeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,4 +42,14 @@ public class SizeController {
     public Size get(@PathVariable Long id) {
         return sizeRepository.getById(id);
     }
+
+    //Create a new size
+    @PostMapping
+    public ResponseEntity<Size> create(@RequestBody Size size){
+        Size newSize = sizeService.saveAndFlush(size);
+        return new ResponseEntity<>(newSize, HttpStatus.CREATED);
+    }
+
+
+
 }
