@@ -27,9 +27,8 @@ public class Products {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "idCategory", nullable = true)
+    @JoinColumn(name = "id_category")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Category category;
 
         public Products(Long id_Products, String name, Double price, String description, Category category) {
@@ -38,6 +37,17 @@ public class Products {
         this.price = price;
         this.description = description;
         this.category = category;
+    }
+
+    public Products(Long id_Products, String name, Double price, String description, Category category,
+                    List<Color> colors, List<Size> sizes) {
+        this.id_Products = id_Products;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+        this.colors = colors;
+        this.sizes = sizes;
     }
 
     @ManyToMany

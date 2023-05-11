@@ -42,9 +42,6 @@ public class ProductsService {
     }
 
 
-
-
-
 //    @GetMapping("category/{id_category}/products")
 //    public ResponseEntity<List<Products>> getAllProductsByCategoryId(@PathVariable(value = "id_category") Long id_category){
 //        List<Products> categoryProducts = productsRepository.findByCategoryId(id_category);
