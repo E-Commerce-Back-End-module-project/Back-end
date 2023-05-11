@@ -4,12 +4,14 @@ import com.EComm.BackEndProject.Service.CategoryService;
 import com.EComm.BackEndProject.Service.ColorService;
 import com.EComm.BackEndProject.Service.ProductsService;
 import com.EComm.BackEndProject.Service.SizeService;
+import com.EComm.BackEndProject.exception.ResourceNotFoundException;
 import com.EComm.BackEndProject.models.Category;
 import com.EComm.BackEndProject.models.Color;
 import com.EComm.BackEndProject.repositories.CategoryRepository;
 import com.EComm.BackEndProject.repositories.ColorRepository;
 import com.EComm.BackEndProject.repositories.ProductsRepository;
 import com.EComm.BackEndProject.repositories.SizeRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +64,17 @@ public class ColorController {
     public ResponseEntity<HttpStatus> deleteColorById(@PathVariable("id") Long id_color) {
         colorRepository.deleteById(id_color);
         return new ResponseEntity<>(HttpStatus.GONE);
+    }
+
+    //Update a Color
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public Color update(@PathVariable("id") Long id_Color, @RequestBody Color color) {
+        Color updatedColor = colorRepository.findById(id_Color)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found Color with id = " + id_Color));
+
+        BeanUtils.copyProperties(color, updatedColor, "id_Products");
+        return colorRepository.saveAndFlush(updatedColor);
     }
 
 }
