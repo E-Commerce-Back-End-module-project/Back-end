@@ -2,9 +2,12 @@ package com.EComm.BackEndProject.controllers;
 
 import com.EComm.BackEndProject.Service.CategoryService;
 import com.EComm.BackEndProject.Service.ProductsService;
+import com.EComm.BackEndProject.exception.ResourceNotFoundException;
 import com.EComm.BackEndProject.models.Category;
+import com.EComm.BackEndProject.models.Products;
 import com.EComm.BackEndProject.repositories.CategoryRepository;
 import com.EComm.BackEndProject.repositories.ProductsRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +60,16 @@ public class CategoryController {
         return new ResponseEntity<>(HttpStatus.GONE);
     }
 
+    //Update a Category
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public Category update(@PathVariable("id") Long id_Category, @RequestBody Category category) {
+        Category updatedCategory = categoryRepository.findById(id_Category)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found Category with id = " + id_Category));
+
+        BeanUtils.copyProperties(category, updatedCategory, "id_Products");
+        return categoryRepository.saveAndFlush(updatedCategory);
+    }
 
 
 }

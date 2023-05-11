@@ -82,8 +82,6 @@ public class ProductsController {
 
         BeanUtils.copyProperties(products, product, "id_Products");
         return productsRepository.saveAndFlush(product);
-
-
     }
 
 
