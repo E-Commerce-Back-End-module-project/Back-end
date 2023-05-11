@@ -65,9 +65,10 @@ public class CategoryController {
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public Category update(@PathVariable("id") Long id_Category, @RequestBody Category category) {
         Category updatedCategory = categoryRepository.findById(id_Category)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found Category with id = " + id_Category));
+                .orElseThrow(() -> new ResourceNotFoundException
+                        ("Not found Category with id = " + id_Category));
 
-        BeanUtils.copyProperties(category, updatedCategory, "id_Products");
+        BeanUtils.copyProperties(category, updatedCategory, "id_Category");
         return categoryRepository.saveAndFlush(updatedCategory);
     }
 
