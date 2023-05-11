@@ -2,10 +2,13 @@ package com.EComm.BackEndProject.controllers;
 
 import com.EComm.BackEndProject.Service.CategoryService;
 import com.EComm.BackEndProject.Service.ProductsService;
+import com.EComm.BackEndProject.exception.ResourceNotFoundException;
 import com.EComm.BackEndProject.models.Category;
+import com.EComm.BackEndProject.models.Color;
 import com.EComm.BackEndProject.models.Products;
 import com.EComm.BackEndProject.repositories.CategoryRepository;
 import com.EComm.BackEndProject.repositories.ProductsRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import static org.checkerframework.checker.nullness.Opt.orElseThrow;
 
 @RestController
 @RequestMapping("/")
@@ -67,6 +72,21 @@ public class ProductsController {
         productsRepository.deleteById(id_Products);
         return new ResponseEntity<>(HttpStatus.GONE);
     }
+
+//Update a Product
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "products/{id}", method = RequestMethod.PUT)
+    public Products update(@PathVariable("id") Long id_Products, @RequestBody Products products) {
+        Products product = productsRepository.findById(id_Products)
+             .orElseThrow(() -> new ResourceNotFoundException("Not found Product with id = " + id_Products));
+
+        BeanUtils.copyProperties(products, product, "id_Products");
+        return productsRepository.saveAndFlush(product);
+
+
+    }
+
+
 
 
 }
