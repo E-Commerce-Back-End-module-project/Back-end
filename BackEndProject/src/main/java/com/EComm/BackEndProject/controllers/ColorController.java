@@ -69,11 +69,12 @@ public class ColorController {
     //Update a Color
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public Color update(@PathVariable("id") Long id_Color, @RequestBody Color color) {
-        Color updatedColor = colorRepository.findById(id_Color)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found Color with id = " + id_Color));
+    public Color update(@PathVariable("id") Long id_color, @RequestBody Color color) {
+        Color updatedColor = colorRepository.findById(id_color)
+                .orElseThrow(() -> new ResourceNotFoundException
+                        ("Not found Color with id = " + id_color));
 
-        BeanUtils.copyProperties(color, updatedColor, "id_Products");
+        BeanUtils.copyProperties(color, updatedColor, "id_color");
         return colorRepository.saveAndFlush(updatedColor);
     }
 
