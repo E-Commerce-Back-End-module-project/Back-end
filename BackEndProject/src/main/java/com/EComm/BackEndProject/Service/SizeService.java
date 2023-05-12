@@ -26,4 +26,7 @@ public class SizeService {
 
         return sizeRepository.saveAndFlush(newSize);
     }
+
+    public Size getById(Long id_size) { return sizeRepository.getReferenceById(id_size);
+    }
 }

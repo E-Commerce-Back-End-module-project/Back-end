@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/color")
@@ -45,12 +46,15 @@ public class ColorController {
     public List<Color> colorList(){return colorRepository.findAll();}
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/{id}")
-    public Color get(@PathVariable Long id) {
-        return colorRepository.getById(id);
+    public Object get(@PathVariable Long id) {
+        try{
+            Color color = colorService.getById(id);
+            return new ResponseEntity<Color>(color,HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
-
     //Create a new color
     @PostMapping
     public ResponseEntity<Color> create(@RequestBody Color color){

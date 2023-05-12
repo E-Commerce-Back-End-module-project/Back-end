@@ -26,4 +26,7 @@ public class ColorService {
 
         return colorRepository.saveAndFlush(newColor);
     }
+
+    public Color getById(Long id_color) { return colorRepository.getReferenceById(id_color);
+    }
 }

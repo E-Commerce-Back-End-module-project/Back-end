@@ -43,10 +43,10 @@ public class ProductsController {
     @RequestMapping("products/{id}")
     public ResponseEntity<Products> get(@PathVariable Long id) {
         try {
-            Products products = productsRepository.getById(id);
+            Products products = productsService.getById(id);
             return new ResponseEntity<Products>(products, HttpStatus.OK);
         }catch (NoSuchElementException e){
-            return new ResponseEntity<Products>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
     }
@@ -83,6 +83,17 @@ public class ProductsController {
         BeanUtils.copyProperties(products, product, "id_Products");
         return productsRepository.saveAndFlush(product);
     }
+
+    //Update any field of Product
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value = "products/{id}", method = RequestMethod.PATCH)
+//    public Products updatePartially(@PathVariable("id") Long id_Products) {
+//        Products product = productsRepository.findById(id_Products)
+//                .orElseThrow(() -> new ResourceNotFoundException("Not found Product with id = " + id_Products));
+//
+//        BeanUtils.copyProperties(products, product, "id_Products");
+//        return productsRepository.saveAndFlush(product);
+//    }
 
 
 
