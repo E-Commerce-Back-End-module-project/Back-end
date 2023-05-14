@@ -32,4 +32,7 @@ public class CategoryService {
     public Category getById(Long id_category) {
         return categoryRepository.getReferenceById(id_category);
     }
+
+
+
 }

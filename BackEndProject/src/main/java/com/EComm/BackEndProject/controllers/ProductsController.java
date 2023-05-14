@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,13 +52,6 @@ public class ProductsController {
 
     }
 
-//get a list of products in a category
-//    @GetMapping("category/{id_category}/products")
-//    public ResponseEntity<List<Products>> getAllProductsByCategoryId(@PathVariable(value = "id_category") Long id_category){
-//        List<Products> categoryProducts = productsRepository.findByCategoryId(id_category);
-//        return  new ResponseEntity<>(categoryProducts, HttpStatus.OK);
-//    }
-
     // Create a new product
     @PostMapping
     @RequestMapping("products")
@@ -84,19 +78,23 @@ public class ProductsController {
         return productsRepository.saveAndFlush(product);
     }
 
-    //Update any field of Product
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(value = "products/{id}", method = RequestMethod.PATCH)
-//    public Products updatePartially(@PathVariable("id") Long id_Products) {
-//        Products product = productsRepository.findById(id_Products)
-//                .orElseThrow(() -> new ResourceNotFoundException("Not found Product with id = " + id_Products));
-//
-//        BeanUtils.copyProperties(products, product, "id_Products");
-//        return productsRepository.saveAndFlush(product);
-//    }
+//    Update any field of Product
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "products/{id}", method = RequestMethod.PATCH)
+    public ResponseEntity<Products> patchProducts(
+            @PathVariable("id") Long id_Products,
+            @Validated @RequestBody Products productRequest) throws ResourceNotFoundException{
+        Products product = productsRepository.findById(id_Products)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found Product with id = " + id_Products));
+            product.setName(productRequest.getName());
+            product.setPrice(productRequest.getPrice());
+            product.setDescription(productRequest.getDescription());
+            product.setCategory(productRequest.getCategory());
+            product.setColors(productRequest.getColors());
+            product.setSizes(productRequest.getSizes());
 
-
-
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
 
 }
 
