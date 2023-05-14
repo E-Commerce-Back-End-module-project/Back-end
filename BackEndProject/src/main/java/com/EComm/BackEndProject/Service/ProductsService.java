@@ -41,6 +41,9 @@ public class ProductsService {
 
     }
 
+    public Products getById(Long id_Products) {return productsRepository.getReferenceById(id_Products);
+    }
+
 
 //    @GetMapping("category/{id_category}/products")
 //    public ResponseEntity<List<Products>> getAllProductsByCategoryId(@PathVariable(value = "id_category") Long id_category){

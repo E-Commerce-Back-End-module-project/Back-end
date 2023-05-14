@@ -41,7 +41,7 @@ public class CategoryController {
             Category category = categoryService.getById(id);
             return new ResponseEntity<Category>(category,HttpStatus.OK);
         } catch (NoSuchElementException e){
-            return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 

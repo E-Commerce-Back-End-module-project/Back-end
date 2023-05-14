@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,20 +44,13 @@ public class ProductsController {
     @RequestMapping("products/{id}")
     public ResponseEntity<Products> get(@PathVariable Long id) {
         try {
-            Products products = productsRepository.getById(id);
+            Products products = productsService.getById(id);
             return new ResponseEntity<Products>(products, HttpStatus.OK);
         }catch (NoSuchElementException e){
-            return new ResponseEntity<Products>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
     }
-
-//get a list of products in a category
-//    @GetMapping("category/{id_category}/products")
-//    public ResponseEntity<List<Products>> getAllProductsByCategoryId(@PathVariable(value = "id_category") Long id_category){
-//        List<Products> categoryProducts = productsRepository.findByCategoryId(id_category);
-//        return  new ResponseEntity<>(categoryProducts, HttpStatus.OK);
-//    }
 
     // Create a new product
     @PostMapping
@@ -84,8 +78,23 @@ public class ProductsController {
         return productsRepository.saveAndFlush(product);
     }
 
+//    Update any field of Product
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "products/{id}", method = RequestMethod.PATCH)
+    public ResponseEntity<Products> patchProducts(
+            @PathVariable("id") Long id_Products,
+            @Validated @RequestBody Products productRequest) throws ResourceNotFoundException{
+        Products product = productsRepository.findById(id_Products)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found Product with id = " + id_Products));
+            product.setName(productRequest.getName());
+            product.setPrice(productRequest.getPrice());
+            product.setDescription(productRequest.getDescription());
+            product.setCategory(productRequest.getCategory());
+            product.setColors(productRequest.getColors());
+            product.setSizes(productRequest.getSizes());
 
-
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
 
 }
 

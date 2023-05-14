@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 @RestController
 @RequestMapping("/size")
 public class SizeController {
@@ -39,10 +41,14 @@ public class SizeController {
     public List<Size> sizeList(){return sizeRepository.findAll();}
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/{id}")
-    public Size get(@PathVariable Long id) {
-        return sizeRepository.getById(id);
+    public Object get(@PathVariable Long id) {
+        try{
+            Size size = sizeService.getById(id);
+            return new ResponseEntity<Size>(size, HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     //Create a new size
